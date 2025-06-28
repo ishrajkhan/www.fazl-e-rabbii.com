@@ -143,7 +143,7 @@
 					</header>
 					<div class="row">
 						<div class="col-12">
-							<form method="post" action="#">
+							<form method="post" action="#" id="contact-form" >
 								<div class="row">
 									<div class="col-6 col-12-small">
 										<input type="text" name="name" id="name" placeholder="Name" />
@@ -165,6 +165,37 @@
 									</div>
 								</div>
 							</form>
+							<div class="message" id="form-message"></div>
+							<!-- Script start -->
+							<script>
+							const scriptURL = 'https://script.google.com/macros/s/AKfycbxqNhMMLHtqKE5cPTUELweHK6ZMNHVrAn1fwhaOMqvRB0pmsIwoJ9qieYFYNSPXq0r3/exec'; <!-- Replace with your Web App URL -->
+							const form = document.getElementById('contact-form');
+							const messageEl = document.getElementById('form-message');
+							form.addEventListener('submit', e => {
+							e.preventDefault();
+							 const data = {
+							 name: form.name.value,
+							 email: form.email.value,
+							 subject: form.subject.value,
+							 message:form.message.value
+							  };
+							  fetch(scriptURL, {
+							   method: 'POST',
+							   body: JSON.stringify(data)
+							    })
+								.then(response => {
+								messageEl.style.color = "green";
+								messageEl.textContent = "Message sent successfully!";
+								form.reset();
+								})
+								.catch(error => {
+								messageEl.style.color = "red";
+								messageEl.textContent = "Error sending message. Please try again.";
+								});
+								});
+								
+							</script>
+							<!-- Script End -->
 						</div>
 						<div class="col-12">
 							<hr />
